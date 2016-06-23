@@ -86,6 +86,7 @@ func (state *State) addTrigger(w http.ResponseWriter, r *http.Request) {
 		trigger.Id = r.FormValue("id")
 		trigger.Message = r.FormValue("message")
 		trigger.Queue = r.FormValue("queue")
+		trigger.GitHubSecret = r.FormValue("githubsecret")
 
 		trigger.Init(config)
 
@@ -97,6 +98,7 @@ func (state *State) addTrigger(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Id: <input name='id'></input><br/>")
 		fmt.Fprintf(w, "Queue: <input name='queue'></input><br/>")
 		fmt.Fprintf(w, "Message: <input name='message'></input><br/>")
+		fmt.Fprintf(w, "GitHubSecret: <input name='githubsecret'></input><br/>")
 		fmt.Fprintf(w, "<input type='submit'></input>")
 		fmt.Fprintf(w, "</form>")
 	}
