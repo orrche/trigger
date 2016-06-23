@@ -1,7 +1,10 @@
 package main
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"log/syslog"
 	"net/http"
@@ -46,9 +49,17 @@ func (state *State) trigger(w http.ResponseWriter, r *http.Request) {
 	if len(matches) > 0 {
 		for _, trigger := range state.Triggers {
 			if trigger.Id == matches {
-				fmt.Fprintf(w, "Triggered<br/>", trigger.Message)
+				mac := hmac.New(sha256.New, []byte("secret"))
+				data, _ := ioutil.ReadAll(r.Body)
+				mac.Write(data)
+				expectedMAC := mac.Sum(nil)
+
+				if hmac.Equal([]byte(r.Header.Get("X-Hub-Signature")), expectedMAC) {
+					fmt.Fprintf(w, "Triggered<br/>", trigger.Message)
+					trigger.amq.Publish(trigger.Message)
+				}
 				fmt.Fprintf(w, "%+v", r)
-				trigger.amq.Publish(trigger.Message)
+
 			}
 		}
 	}
