@@ -47,7 +47,7 @@ func (state *State) trigger(w http.ResponseWriter, r *http.Request) {
 		for _, trigger := range state.Triggers {
 			if trigger.Id == matches {
 				fmt.Fprintf(w, "Triggered<br/>", trigger.Message)
-				fmt.Fprintf(w, r)
+				fmt.Fprintf(w, "%s", r)
 				trigger.amq.Publish(trigger.Message)
 			}
 		}
