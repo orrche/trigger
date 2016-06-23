@@ -17,9 +17,10 @@ import (
 )
 
 type Trigger struct {
-	Id      string
-	Queue   string
-	Message string
+	Id           string
+	GitHubSecret string
+	Queue        string
+	Message      string
 
 	amq *camq.Amq
 }
@@ -50,17 +51,22 @@ func (state *State) trigger(w http.ResponseWriter, r *http.Request) {
 	if len(matches) > 0 {
 		for _, trigger := range state.Triggers {
 			if trigger.Id == matches {
-				mac := hmac.New(sha1.New, []byte("secret"))
-				data, _ := ioutil.ReadAll(r.Body)
-				mac.Write(data)
-				expectedMAC := mac.Sum(nil)
+				if trigger.GitHubSecret != "" {
+					mac := hmac.New(sha1.New, []byte(trigger.GitHubSecret))
+					data, _ := ioutil.ReadAll(r.Body)
+					mac.Write(data)
+					expectedMAC := mac.Sum(nil)
 
-				headerMac, _ := hex.DecodeString(r.Header.Get("X-Hub-Signature")[5:])
-				if hmac.Equal(headerMac, expectedMAC) {
-					fmt.Fprintf(w, "Triggered<br/>", trigger.Message)
+					headerMac, _ := hex.DecodeString(r.Header.Get("X-Hub-Signature")[5:])
+					if hmac.Equal(headerMac, expectedMAC) {
+						fmt.Fprintf(w, "Triggered\n", trigger.Message)
+						trigger.amq.Publish(trigger.Message)
+					}
+					fmt.Fprintf(w, "%x\n", expectedMAC)
+				} else {
+					fmt.Fprintf(w, "Triggered\n", trigger.Message)
 					trigger.amq.Publish(trigger.Message)
 				}
-				fmt.Fprintf(w, "%x\n%+v", expectedMAC, r)
 
 			}
 		}

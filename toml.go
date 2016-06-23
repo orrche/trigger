@@ -8,9 +8,10 @@ import (
 )
 
 type tomlTrigger struct {
-	Id      string
-	Message string
-	Queue   string
+	Id           string
+	Message      string
+	Queue        string
+	GitHubSecret string
 }
 
 type tomlState struct {
@@ -22,7 +23,7 @@ func SaveState(state State) {
 	var ttomlState tomlState
 	ttomlState.Version = "1.0"
 	for _, trigger := range state.Triggers {
-		tTrigger := tomlTrigger{trigger.Id, trigger.Message, trigger.Queue}
+		tTrigger := tomlTrigger{trigger.Id, trigger.Message, trigger.Queue, trigger.GitHubSecret}
 
 		ttomlState.Trigger = append(ttomlState.Trigger, tTrigger)
 	}
@@ -47,6 +48,7 @@ func LoadState(config Config) *State {
 		trigger.Id = tTrigger.Id
 		trigger.Message = tTrigger.Message
 		trigger.Queue = tTrigger.Queue
+		trigger.GitHubSecret = tTrigger.GitHubSecret
 
 		trigger.Init(config)
 
