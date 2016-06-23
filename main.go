@@ -55,6 +55,7 @@ func (state *State) trigger(w http.ResponseWriter, r *http.Request) {
 
 func (trigger *Trigger) Init(config Config) {
 	trigger.amq = camq.GetAMQChannel(config.AMQ)
+	trigger.amq.DeclareExchange()
 }
 
 func (state *State) addTrigger(w http.ResponseWriter, r *http.Request) {
