@@ -55,7 +55,7 @@ func (state *State) trigger(w http.ResponseWriter, r *http.Request) {
 				mac.Write(data)
 				expectedMAC := mac.Sum(nil)
 
-				headerMac, _ := hex.DecodeString(r.Header.Get("X-Hub-Signature"))
+				headerMac, _ := hex.DecodeString(r.Header.Get("X-Hub-Signature")[5:])
 				if hmac.Equal(headerMac, expectedMAC) {
 					fmt.Fprintf(w, "Triggered<br/>", trigger.Message)
 					trigger.amq.Publish(trigger.Message)
