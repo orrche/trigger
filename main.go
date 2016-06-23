@@ -2,7 +2,7 @@ package main
 
 import (
 	"crypto/hmac"
-	"crypto/sha256"
+	"crypto/sha1"
 	"encoding/hex"
 	"fmt"
 	"io/ioutil"
@@ -50,7 +50,7 @@ func (state *State) trigger(w http.ResponseWriter, r *http.Request) {
 	if len(matches) > 0 {
 		for _, trigger := range state.Triggers {
 			if trigger.Id == matches {
-				mac := hmac.New(sha256.New, []byte("secret"))
+				mac := hmac.New(sha1.New, []byte("secret"))
 				data, _ := ioutil.ReadAll(r.Body)
 				mac.Write(data)
 				expectedMAC := mac.Sum(nil)
