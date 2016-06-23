@@ -58,7 +58,7 @@ func (state *State) trigger(w http.ResponseWriter, r *http.Request) {
 					fmt.Fprintf(w, "Triggered<br/>", trigger.Message)
 					trigger.amq.Publish(trigger.Message)
 				}
-				fmt.Fprintf(w, "%+v", r)
+				fmt.Fprintf(w, "%s\n%+v", expectedMAC, r)
 
 			}
 		}
