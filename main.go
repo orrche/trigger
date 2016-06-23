@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/hmac"
 	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -54,11 +55,12 @@ func (state *State) trigger(w http.ResponseWriter, r *http.Request) {
 				mac.Write(data)
 				expectedMAC := mac.Sum(nil)
 
-				if hmac.Equal([]byte(r.Header.Get("X-Hub-Signature")), expectedMAC) {
+				headerMac, _ := hex.DecodeString(r.Header.Get("X-Hub-Signature"))
+				if hmac.Equal(headerMac, expectedMAC) {
 					fmt.Fprintf(w, "Triggered<br/>", trigger.Message)
 					trigger.amq.Publish(trigger.Message)
 				}
-				fmt.Fprintf(w, "%s\n%+v", expectedMAC, r)
+				fmt.Fprintf(w, "%x\n%+v", expectedMAC, r)
 
 			}
 		}
