@@ -1,0 +1,5 @@
+/main
+/kasa.yml
+*.touch
+docker.digest
+/deployment.apply.yml
