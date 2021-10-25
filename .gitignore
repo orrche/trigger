@@ -3,3 +3,4 @@
 *.touch
 docker.digest
 /deployment.apply.yml
+/secret.yml
