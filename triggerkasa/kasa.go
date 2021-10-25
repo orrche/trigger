@@ -29,7 +29,7 @@ func turnOff() {
 }
 
 func init() {
-	yamlFile, err := ioutil.ReadFile("kasa.yml")
+	yamlFile, err := ioutil.ReadFile("configs/kasa.yml")
 	if err != nil {
 		log.Printf("yamlFile.Get err   #%v ", err)
 	}
