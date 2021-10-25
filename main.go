@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os/exec"
 
-	_ "github.com/orrche/trigger/triggerkasa"
+	"github.com/orrche/trigger/triggerkasa"
 
 	"github.com/gorilla/pat"
 )
@@ -43,6 +43,20 @@ func main() {
 			exec.Command("amixer", "set", "Master", "unmute").Output()
 		}
 
+	})
+	p.Post("/lights", func(w http.ResponseWriter, req *http.Request) {
+		data, err := ioutil.ReadAll(req.Body)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("DATA: %s\n", string(data))
+
+		if string(data) == "dark" {
+			triggerkasa.TurnOff()
+		}
+		if string(data) == "light" {
+			triggerkasa.TurnOn()
+		}
 	})
 	p.Get("/", func(w http.ResponseWriter, req *http.Request) {
 		fmt.Printf("Got a get request\n")

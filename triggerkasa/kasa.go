@@ -16,13 +16,25 @@ type kasaConf struct {
 var c kasaConf
 var api kasa.API
 
-func turnOff() {
+func TurnOff() {
 	hs100, err := api.GetHS100("AC")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	err = hs100.TurnOff()
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func TurnOn() {
+	hs100, err := api.GetHS100("AC")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = hs100.TurnOn()
 	if err != nil {
 		log.Fatal(err)
 	}
