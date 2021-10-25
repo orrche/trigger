@@ -30,4 +30,4 @@ apply.touch: deployment.apply.yml
 	touch apply.touch
 
 clean:
-	rm docker.digest apply.touch -f
+	rm trigger docker.digest apply.touch -f
