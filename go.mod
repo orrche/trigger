@@ -8,5 +8,8 @@ require (
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/gorilla/pat v1.0.1
 	github.com/ivanbeldad/kasa-go v0.0.0-20201031100518-9b33fa73f8a7
+	github.com/orrche/trigger/triggerkasa v0.0.0
 	gopkg.in/yaml.v2 v2.4.0
 )
+
+replace github.com/orrche/trigger/triggerkasa v0.0.0 => ./triggerkasa
