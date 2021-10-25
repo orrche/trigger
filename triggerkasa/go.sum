@@ -1,0 +1,8 @@
+github.com/gofrs/uuid v1.2.0 h1:coDhrjgyJaglxSjxuJdqQSSdUpG3w6p1OwN2od6frBU=
+github.com/gofrs/uuid v4.1.0+incompatible h1:sIa2eCvUTwgjbqXrPLfNwUf9S3i3mpH1O1atV+iL/Wk=
+github.com/gofrs/uuid v4.1.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
+github.com/ivanbeldad/kasa-go v0.0.0-20201031100518-9b33fa73f8a7 h1:SnCRNM3Fg66acGpB2LIFH9X8GwVdyDquNUi09d1RKoE=
+github.com/ivanbeldad/kasa-go v0.0.0-20201031100518-9b33fa73f8a7/go.mod h1:H7hUFLuyMWXu+lR7k95e6ap6KwqzrH4UDM5fCXZhr3o=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v2 v2.4.0 h1:D8xgwECY7CYvx+Y2n4sBz93Jn9JRvxdiyyo8CTfuKaY=
+gopkg.in/yaml.v2 v2.4.0/go.mod h1:RDklbk79AGWmwhnvt/jBztapEOGDOx6ZbXqjP6csGnQ=
