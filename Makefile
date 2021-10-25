@@ -5,14 +5,16 @@ KUBECTLOPTS ?=
 RELEASE ?= latest
 DOCKERCOMMAND ?= podman
 
+GOCODE := $(shell find . -name resource\*.png -print)
+
 .PHONY: clean
 
 all: apply.touch
 
-main: main.go
+trigger: $(GOCODE)
 	go build .
 
-docker.digest: Dockerfile docker_entrypoint.sh main
+docker.digest: Dockerfile docker_entrypoint.sh trigger
 	$(DOCKERCOMMAND) build -t $(REGISTRY)/$(APPLICATION):$(RELEASE) .
 	$(DOCKERCOMMAND) push $(REGISTRY)/$(APPLICATION):$(RELEASE)
 
