@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os/exec"
 
-	_ "main/triggerkasa"
+	_ "github.com/orrche/trigger/triggerkasa"
 
 	"github.com/gorilla/pat"
 )
@@ -49,6 +49,5 @@ func main() {
 		fmt.Fprintf(w, "Hello World\n")
 	})
 
-	triggerkasa.turnOff()
 	http.ListenAndServe(":8080", p)
 }

@@ -1,4 +1,4 @@
-module triggerkasa
+module github.com/orrche/trigger/triggerkasa
 
 go 1.14
 

@@ -1,4 +1,4 @@
-module main
+module github.com/orrche/trigger
 
 go 1.14
 
