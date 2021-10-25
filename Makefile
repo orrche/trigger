@@ -5,7 +5,7 @@ KUBECTLOPTS ?=
 RELEASE ?= latest
 DOCKERCOMMAND ?= podman
 
-GOCODE := $(shell find . -name resource\*.png -print)
+GOCODE := $(shell find . -name \*.go -print)
 
 .PHONY: clean
 
